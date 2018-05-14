@@ -73,7 +73,7 @@ int main(void)
 
   USART_InitTypeDef usartInitStruct;
 
-  usartInitStruct.USART_BaudRate = 115200;
+  usartInitStruct.USART_BaudRate = 9600;
   usartInitStruct.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
   usartInitStruct.USART_Mode = USART_Mode_Tx | USART_Mode_Rx;
   usartInitStruct.USART_Parity = USART_Parity_No;
@@ -82,7 +82,7 @@ int main(void)
   USART_Init(USART6, &usartInitStruct);
   USART_Cmd(USART6, ENABLE);
 
-
+  myUART* usart = myUSART6;
 
 
 
@@ -101,7 +101,11 @@ int main(void)
   /* Infinite loop */
   while (1)
   {
-	i++;
+	for (i = 0; i < 25000000; i++){
+
+	}
+	usart->SendData(3);
+	//USART_SendData(USART6, 3);
 
 
 

@@ -36,7 +36,7 @@ class myUART {
 
 public:
 
-	  void inline USART_SendData(uint16_t Data)
+	  void inline SendData(uint16_t Data)
 	  {
 	    /* Check the parameters */
 	    //assert_param(IS_USART_DATA(Data));
@@ -47,7 +47,7 @@ public:
 
 
 
-	  uint16_t inline USART_ReceiveData()
+	  uint16_t inline ReceiveData()
 	  {
 	    /* Check the parameters */
 	    //assert_param(IS_USART_ALL_PERIPH(USARTx));
