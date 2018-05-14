@@ -29,6 +29,11 @@ SOFTWARE.
 
 /* Includes */
 #include "stm32f4xx.h"
+#include "stm32f4xx_rcc.h"
+#include "stm32f4xx_gpio.h"
+
+
+#include "uart_cpp.h"
 
 /* Private macro */
 /* Private variables */
@@ -46,6 +51,41 @@ int main(void)
 {
   int i = 0;
 
+
+  // initialize GPIO
+
+  GPIO_InitTypeDef gpioInitStruct;
+
+  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
+
+  GPIO_PinAFConfig(GPIOC, GPIO_PinSource6, GPIO_AF_USART6);
+  GPIO_PinAFConfig(GPIOC, GPIO_PinSource7, GPIO_AF_USART6);
+
+  gpioInitStruct.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7;
+  gpioInitStruct.GPIO_Mode = GPIO_Mode_AF;
+  gpioInitStruct.GPIO_OType = GPIO_OType_PP;
+  gpioInitStruct.GPIO_PuPd = GPIO_PuPd_UP;
+  gpioInitStruct.GPIO_Speed = GPIO_Speed_100MHz;
+  GPIO_Init(GPIOC, &gpioInitStruct);
+
+
+  RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART6, ENABLE);
+
+  USART_InitTypeDef usartInitStruct;
+
+  usartInitStruct.USART_BaudRate = 115200;
+  usartInitStruct.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+  usartInitStruct.USART_Mode = USART_Mode_Tx | USART_Mode_Rx;
+  usartInitStruct.USART_Parity = USART_Parity_No;
+  usartInitStruct.USART_StopBits = USART_StopBits_1;
+  usartInitStruct.USART_WordLength = USART_WordLength_8b;
+  USART_Init(USART6, &usartInitStruct);
+  USART_Cmd(USART6, ENABLE);
+
+
+
+
+
   /**
   *  IMPORTANT NOTE!
   *  The symbol VECT_TAB_SRAM needs to be defined when building the project
@@ -62,5 +102,8 @@ int main(void)
   while (1)
   {
 	i++;
+
+
+
   }
 }
