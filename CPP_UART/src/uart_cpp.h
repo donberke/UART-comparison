@@ -1,6 +1,8 @@
 
-#ifndef UART_CPP
-#define UART_CPP
+#include "stm32f4xx.h"
+
+#ifndef UART_H
+#define UART_H
 
 
 // ------------------------------------------------------------ DEFINES ------------------------------------------------------------
@@ -56,8 +58,16 @@ public:
 	    return (uint16_t)(DR & (uint16_t)0x01FF);
 	  }
 
+	  uint16_t ReceiveData()
+	  {
+	    /* Check the parameters */
+	    //assert_param(IS_USART_ALL_PERIPH(USARTx));
+
+	    /* Receive Data */
+	    return (uint16_t)(USARTx->DR & (uint16_t)0x01FF);
+	  }
 };
 
 
 
-#endif // UART_CPP
+#endif // UART_H

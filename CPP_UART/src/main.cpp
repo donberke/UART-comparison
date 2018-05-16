@@ -32,7 +32,6 @@ SOFTWARE.
 #include "stm32f4xx_rcc.h"
 #include "stm32f4xx_gpio.h"
 
-
 #include "uart_cpp.h"
 
 /* Private macro */
@@ -47,6 +46,9 @@ SOFTWARE.
 **
 **===========================================================================
 */
+
+
+
 int main(void)
 {
   int i = 0;
@@ -71,6 +73,8 @@ int main(void)
 
   RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART6, ENABLE);
 
+  myUART* usart = myUSART6;
+
   USART_InitTypeDef usartInitStruct;
 
   usartInitStruct.USART_BaudRate = 9600;
@@ -82,7 +86,7 @@ int main(void)
   USART_Init(USART6, &usartInitStruct);
   USART_Cmd(USART6, ENABLE);
 
-  myUART* usart = myUSART6;
+
 
 
 
@@ -104,6 +108,7 @@ int main(void)
 	for (i = 0; i < 25000000; i++){
 
 	}
+
 	usart->SendData(3);
 	//USART_SendData(USART6, 3);
 
